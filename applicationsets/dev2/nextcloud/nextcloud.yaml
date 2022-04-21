@@ -20,9 +20,9 @@ spec:
       valueFiles: []
       parameters:
         - name: hpa.enabled
-          value: "true"
+          value: "false"
         - name: hpa.minPods
-          value: "2"
+          value: "1"
         - name: persistence.enabled
           value: "true"
         - name: persistence.size
@@ -30,8 +30,8 @@ spec:
   project: default
   syncPolicy:
     automated:
-      prune: false
-      selfHeal: false
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
   ignoreDifferences:
