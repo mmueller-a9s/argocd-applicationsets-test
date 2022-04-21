@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: applicationsets
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: 'https://github.com/mmueller-a9s/argocd-applicationsets-test.git'
+      revision: HEAD
+      directories:
+        - path: applicationsets/dev2/*
+  template:
+    metadata:
+      name: 'applicationsets-dev2'
+      namespace: argocd
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+          - CreateNamespace=true
+      source:
+        repoURL: 'https://github.com/mmueller-a9s/argocd-applicationsets-test.git'
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: applicationsets
