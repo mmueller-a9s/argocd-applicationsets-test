@@ -1,2 +1,5 @@
 # Blank values.yaml
 
+hpa:
+  enabled: true
+  minPods: 2
